@@ -1,22 +1,22 @@
 # CSE-3901-Project-2 a card game.
 Parker Arnold  
-Tyler Cingel  
+[Tyler Cingel](https://github.com/TylerCingel)  
 Noah Feingold  
-Maxwell Hathaway  
-Noah LaPolt  
+[Maxwell Hathaway](https://github.com/noahlapolt)  
+[Noah LaPolt](https://github.com/mhathaway225)  
 Kevin Song
 
 # Rules of Set:
 A Set deck conists of 81 unique cards that vary in four respects  
-    * Number of shapes: 1-3  
-    * Shape type: Diamond, Tilte, Oval  
-    * Opacity: Transparent, Translucent, Opaque  
-    * Color: Green, Blue, Red  
+   * Number of shapes: 1-3  
+   * Shape type: Diamond, Tilte, Oval  
+   * Opacity: Transparent, Translucent, Opaque  
+   * Color: Green, Blue, Red  
 Each possible combination of features appears only once in a deck  
 To make a "set" of cards, you must meet one of two criteria for all for features,
 I.e. for each feature, one of the following must apply:  
-    * All 3 cards are the same with respect to this feature  
-    * All 3 cards are unique with respect to this feature  
+   * All 3 cards are the same with respect to this feature  
+   * All 3 cards are unique with respect to this feature  
 For example, all 3 cards can have unique shapes and opacities, and also have the same number and color, and this would be a valid set
 
 # Playing the game
