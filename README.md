@@ -1,9 +1,9 @@
 # CSE-3901-Project-2 a card game.
-Parker Arnold
-Tyler Cingel
-Noah Feingold
-Maxwell Hathaway
-Noah LaPolt
+Parker Arnold  
+Tyler Cingel  
+Noah Feingold  
+Maxwell Hathaway  
+Noah LaPolt  
 Kevin Song
 
 # Rules of Set:
@@ -19,6 +19,6 @@ I.e. for each feature, one of the following must apply:
 	All 3 cards are unique with respect to this feature
 For example, all 3 cards can have unique shapes and opacities, and also have the same number and color, and this would be a valid set
 
-#Playing the game
+# Playing the game
 At the beginning of the game, each player takes 12 cards from their deck and begins trying to create sets, anytime a set is made, or it is impossible to make more sets, the player lays out 3 more cards
 The objective of the game is to make sets out of the entire deck, in other words you are finished if you have every card in one of your sets, and you win the game if you are the first to do so in your group
