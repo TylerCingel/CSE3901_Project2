@@ -8,18 +8,20 @@
 # Opacity: Transparent, Translucent, Opaque
 
 class Card
-	attr_accessor :number, :color, :shape, :opacity
-	def initialize(number, color, shape, opacity)
-		@number = number
-		@color = color
-		@shape = shape
-		@opacity = opacity
-	end
-	def compare(card)
-		if (@number!=card.number && @color!=card.color && @shape!=card.shape && @opacity!=card.opacity)
-			puts "Unique"
-		else
-			puts "Not Unique"
-		end
-	end
+  attr_accessor :number, :color, :shape, :opacity
+
+  def initialize(number, color, shape, opacity)
+    @number = number
+    @color = color
+    @shape = shape
+    @opacity = opacity
+  end
+
+  def compare(card)
+    if @number != card.number && @color != card.color && @shape != card.shape && @opacity != card.opacity
+      puts 'Unique'
+    else
+      puts 'Not Unique'
+    end
+  end
 end
