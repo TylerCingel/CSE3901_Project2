@@ -7,6 +7,14 @@
 # @shape: Diamond 'd', Tilte 't', Oval 'o'
 # @cpacity: Transparent 'tp', Translucent 'tl', Opaque 'op'
 
+=begin
+	TODO
+	Make loop that runs until cardDeck is empty
+	Hand out 12 cards
+	Make interface that attempts to make a set
+	Make new array that stores sets
+=end
+
 require './Card'
 
 def compareNumber(c1, c2, c3)
@@ -58,12 +66,20 @@ def compareCards(c1, c2, c3)
 end
 
 class Main
-	card1 = Card.new(2,'g','o','tp')
-	card2 = Card.new(3,'b','t','tl')
-	card3 = Card.new(1,'r','d','op')
-	card4 = Card.new(2,'b','o','tl')
-	card5 = Card.new(2,'r','o','op')
-	puts compareCards(card1, card2, card3)
-	puts compareCards(card1, card4, card5)
-	puts compareCards(card2, card4, card5)
+	numbers = [1,2,3]
+	colors = ['Red','Green','Blue']
+	shapes = ['Diamond','Tilte','Oval']
+	opacity = ['Transparent','Translucent','Opaque']
+	cardDeck = []
+	for a in 0..2 do
+		for b in 0..2 do
+			for c in 0..2 do
+				for d in 0..2 do
+					tempCard = Card.new(numbers[a],colors[b],shapes[c],opacity[d])	
+					cardDeck.push(tempCard)
+				end
+			end
+		end
+	end
+	cardDeck.shuffle
 end

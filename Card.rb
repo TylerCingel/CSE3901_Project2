@@ -9,4 +9,7 @@ class Card
     @shape = shape
     @opacity = opacity
   end
+  def toString()
+  	return "#{@number}\t#{@color}\t#{@opacity}\t#{@shape}"
+  end
 end
