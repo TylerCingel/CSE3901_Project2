@@ -3,9 +3,9 @@
 # Project 2
 
 # @number: 1, 2, 3
-# @color: Green 'g', Blue 'b', Red 'r'
-# @shape: Diamond 'd', Tilte 't', Oval 'o'
-# @cpacity: Transparent 'tp', Translucent 'tl', Opaque 'op'
+# @color: Green 'G', Blue 'B', Red 'R'
+# @shape: Diamond '<>', Tilte '~', Oval '0'
+# @cpacity: Transparent '|', Translucent '||', Opaque '|||'
 
 =begin
 	TODO
@@ -67,10 +67,12 @@ end
 
 class Main
 	numbers = [1,2,3]
-	colors = ['Red','Green','Blue']
-	shapes = ['Diamond','Tilte','Oval']
-	opacity = ['Transparent','Translucent','Opaque']
+	colors = ['R','G','B']
+	shapes = ['<>','~','0']
+	opacity = ['|','||','|||']
 	cardDeck = []
+	playDeck = []
+	setDeck = []
 	for a in 0..2 do
 		for b in 0..2 do
 			for c in 0..2 do
@@ -81,5 +83,33 @@ class Main
 			end
 		end
 	end
-	cardDeck.shuffle
+	cardDeck = cardDeck.shuffle
+	for x in 0..11 do
+		playDeck.push(cardDeck.pop())
+	end
+	while cardDeck.length > 0
+		for x in 0..playDeck.length-1 do
+			puts "Card "+(x+1).to_s()+": \t"+playDeck[x].toString
+		end
+		print "Enter card 1 or n to get new cards: "
+		card1 = gets
+		if card1=='n' # TODO still asking for card 2 and 3 after entering 'n'
+			for x in 0..2 do
+				playDeck.push(cardDeck.pop())
+			end
+		else
+			print "Enter card 2: "
+			card2 = gets
+			print "Enter card 3: "
+			card3 = gets
+			if compareCards(playDeck[card1.to_i()-1], playDeck[card2.to_i()-1], playDeck[card3.to_i()-1])
+				# TODO add as set to setDeck and ensure correct cards are removed from playDeck
+				for x in 0..2 do
+					playDeck.push(cardDeck.pop())
+				end
+			else
+				puts "Insufficient set"
+			end
+		end
+	end
 end
