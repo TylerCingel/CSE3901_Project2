@@ -57,8 +57,10 @@ def compareOpacity(c1, c2, c3)
 	end
 end
 
-def compareCards(c1, c2, c3)
-	if compareNumber(c1, c2, c3) and compareColor(c1, c2, c3) and compareShape(c1, c2, c3) and compareOpacity(c1, c2, c3)
+def compareCards(c1=-1, c2=-1, c3=-1)
+	if c1==c2 or c1==c3 or c2==c3
+		return false
+	elsif compareNumber(c1, c2, c3) and compareColor(c1, c2, c3) and compareShape(c1, c2, c3) and compareOpacity(c1, c2, c3)
 		return true
 	else
 		return false
@@ -73,10 +75,11 @@ class Main
 	cardDeck = []
 	playDeck = []
 	setDeck = []
-	for a in 0..2 do
-		for b in 0..2 do
-			for c in 0..2 do
-				for d in 0..2 do
+	deckSize = 2
+	for a in 0..deckSize do
+		for b in 0..deckSize do
+			for c in 0..deckSize do
+				for d in 0..deckSize do
 					tempCard = Card.new(numbers[a],colors[b],shapes[c],opacity[d])	
 					cardDeck.push(tempCard)
 				end
@@ -84,32 +87,73 @@ class Main
 		end
 	end
 	cardDeck = cardDeck.shuffle
-	for x in 0..11 do
+	for makePlayDeck in 0..11 do
 		playDeck.push(cardDeck.pop())
 	end
-	while cardDeck.length > 0
-		for x in 0..playDeck.length-1 do
+	while cardDeck.length > 0 and playDeck.length > 0
+		puts "Deck size: "+cardDeck.length.to_s()
+		for x in 0...playDeck.length do
 			puts "Card "+(x+1).to_s()+": \t"+playDeck[x].toString
 		end
-		print "Enter card 1 or n to get new cards: "
+		card1 = card2 = card3 = ""
+		print "Enter card 1, 'b' for bot, or skip to get new cards: "
 		card1 = gets
-		if card1=='n' # TODO still asking for card 2 and 3 after entering 'n'
-			for x in 0..2 do
-				playDeck.push(cardDeck.pop())
-			end
-		else
-			print "Enter card 2: "
-			card2 = gets
-			print "Enter card 3: "
-			card3 = gets
-			if compareCards(playDeck[card1.to_i()-1], playDeck[card2.to_i()-1], playDeck[card3.to_i()-1])
-				# TODO add as set to setDeck and ensure correct cards are removed from playDeck
-				for x in 0..2 do
-					playDeck.push(cardDeck.pop())
+		newCards = false
+		puts card1.include?"b"
+		if card1.length > 1
+			if !card1.include?"b"
+				print "Enter card 2: "
+				card2 = gets
+				print "Enter card 3: "
+				card3 = gets
+			else
+				card1 = card2 = card3 = -1
+				for x in 0...playDeck.length do
+					for y in 0...playDeck.length do
+						for z in 0...playDeck.length do
+							if compareCards(playDeck[x], playDeck[y], playDeck[z])
+								card1 = x+1
+								card2 = y+1
+								card3 = z+1
+							end
+						end
+					end
 				end
+				if card1 == -1
+					puts "No possible sets"
+				else
+					puts "Set found: "+card1.to_s()+" "+card2.to_s()+" "+card3.to_s()
+				end
+			end
+			if compareCards(playDeck[card1.to_i()-1], playDeck[card2.to_i()-1], playDeck[card3.to_i()-1])
+				remCard1 = playDeck[card1.to_i()-1]
+				remCard2 = playDeck[card2.to_i()-1]
+				remCard3 = playDeck[card3.to_i()-1]
+				setDeck.push([remCard1, remCard2, remCard3])
+				playDeck.delete(remCard1)
+				playDeck.delete(remCard2)
+				playDeck.delete(remCard3)
+				newCards = true
 			else
 				puts "Insufficient set"
 			end
+		else
+			newCards = true
 		end
+		
+		if newCards
+			for y in 0..2 do
+				playDeck.push(cardDeck.pop())
+			end
+		end
+	end
+	puts "Congratulations, you win!"
+	puts "Your sets:"
+	for x in 0...setDeck.length do
+		puts "Set "+(x+1).to_s()
+		for y in 0..2 do
+			puts "\t"+setDeck[x][y].toString
+		end
+		puts ""
 	end
 end
