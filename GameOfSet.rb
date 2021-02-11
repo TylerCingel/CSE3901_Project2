@@ -7,16 +7,9 @@
 # @shape: Diamond '<>', Tilte '~', Oval '0'
 # @cpacity: Transparent '|', Translucent '||', Opaque '|||'
 
-=begin
-	TODO
-	Make loop that runs until cardDeck is empty
-	Hand out 12 cards
-	Make interface that attempts to make a set
-	Make new array that stores sets
-=end
-
 require './Card'
 
+#Compares if the numbers for 3 cards are valid for a set
 def compareNumber(c1, c2, c3)
 	if c1.number == c2.number and c1.number == c3.number
 		return true
@@ -27,6 +20,7 @@ def compareNumber(c1, c2, c3)
 	end
 end
 
+#Compares if the colors for 3 cards are valid for a set
 def compareColor(c1, c2, c3)
 	if c1.color == c2.color and c1.color == c3.color
 		return true
@@ -37,6 +31,7 @@ def compareColor(c1, c2, c3)
 	end
 end
 
+#Compares if the shapes for 3 cards are valid for a set
 def compareShape(c1, c2, c3)
 	if c1.shape == c2.shape and c1.shape == c3.shape
 		return true
@@ -47,6 +42,7 @@ def compareShape(c1, c2, c3)
 	end
 end
 
+#Compares if the opacities for 3 cards are valid for a set
 def compareOpacity(c1, c2, c3)
 	if c1.opacity == c2.opacity and c1.opacity == c3.opacity
 		return true
@@ -57,6 +53,7 @@ def compareOpacity(c1, c2, c3)
 	end
 end
 
+#Compares 3 cards and returns true if they are a valid set, or false otherwise
 def compareCards(c1=-1, c2=-1, c3=-1)
 	if c1==c2 or c1==c3 or c2==c3
 		return false
@@ -68,14 +65,15 @@ def compareCards(c1=-1, c2=-1, c3=-1)
 end
 
 class Main
-	numbers = [1,2,3]
-	colors = ['R','G','B']
-	shapes = ['<>','~','0']
-	opacity = ['|','||','|||']
-	cardDeck = []
-	playDeck = []
-	setDeck = []
+	numbers = [1,2,3]		#Symbols for number of shapes
+	colors = ['R','G','B']		#Symbols for color of shapes
+	shapes = ['<>','~','0']	#Symbols representing shapes
+	opacity = ['|','||','|||']	#Deterministic of opacity
+	cardDeck = []	#Deck of cards still not put into a set or in play
+	playDeck = []	#Deck of cards currently in play
+	setDeck = []	#Deck of cards that have already been placed in sets
 	deckSize = 2
+	#Makes all 81 unique cards and shuffles
 	for a in 0..deckSize do
 		for b in 0..deckSize do
 			for c in 0..deckSize do
@@ -87,11 +85,13 @@ class Main
 		end
 	end
 	cardDeck = cardDeck.shuffle
+	#Gets first play deck
 	for makePlayDeck in 0..11 do
 		playDeck.push(cardDeck.pop())
 	end
-	while cardDeck.length > 0 and playDeck.length > 0
+	while cardDeck.length > 0 and playDeck.length > 0	#Loop that runs until both card deck and play deck are empty
 		puts "Deck size: "+cardDeck.length.to_s()
+		#Prints cards in play
 		for x in 0...playDeck.length do
 			puts "Card "+(x+1).to_s()+": \t"+playDeck[x].toString
 		end
@@ -101,12 +101,12 @@ class Main
 		newCards = false
 		puts card1.include?"b"
 		if card1.length > 1
-			if !card1.include?"b"
+			if !card1.include?"b"	#User enters a potential deck
 				print "Enter card 2: "
 				card2 = gets
 				print "Enter card 3: "
 				card3 = gets
-			else
+			else			#Handy-dandy bot to find a set for the user, or lets us know if there is none
 				card1 = card2 = card3 = -1
 				for x in 0...playDeck.length do
 					for y in 0...playDeck.length do
@@ -129,8 +129,8 @@ class Main
 				remCard1 = playDeck[card1.to_i()-1]
 				remCard2 = playDeck[card2.to_i()-1]
 				remCard3 = playDeck[card3.to_i()-1]
-				setDeck.push([remCard1, remCard2, remCard3])
-				playDeck.delete(remCard1)
+				setDeck.push([remCard1, remCard2, remCard3])	#Adds set to set deck
+				playDeck.delete(remCard1)			#Removes cards from play deck
 				playDeck.delete(remCard2)
 				playDeck.delete(remCard3)
 				newCards = true
@@ -141,7 +141,7 @@ class Main
 			newCards = true
 		end
 		
-		if newCards
+		if newCards	#Whether because there are no valid sets, or a set was just made, adds 3 new cards to play deck
 			for y in 0..2 do
 				playDeck.push(cardDeck.pop())
 			end
@@ -149,7 +149,7 @@ class Main
 	end
 	puts "Congratulations, you win!"
 	puts "Your sets:"
-	for x in 0...setDeck.length do
+	for x in 0...setDeck.length do	#Prints all sets made during game
 		puts "Set "+(x+1).to_s()
 		for y in 0..2 do
 			puts "\t"+setDeck[x][y].toString
